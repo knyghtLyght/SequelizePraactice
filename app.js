@@ -1,10 +1,11 @@
 const express = require('express'); //Core server framework
 const volleyball = require('volleyball'); //Logging middleware
+const colors = require("colors"); // eslint-disable-line
 const config = require('./config/config'); //config file for incresed modularity
 const bodyParser = require('body-parser'); //Helps us handle http requests
 const path = require('path'); //Built in node module that handles path minipulation
-const puppiesRouter = require('./puppiesRouter'); //Holds all the routes that dael with puppies
-const db = require('./db').db;
+const puppiesRouter = require('./routes/puppiesRouter'); //Holds all the routes that dael with puppies
+const db = require('./db');
 
 //Init our server instance
 const app = express();
@@ -21,15 +22,15 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/puppies', puppiesRouter);
 
 //Establish our default route if the user searches for something that is not there
-app.use('*', function(req, res) {
+app.use('*', (req, res) => {
   res.send('this is the default route');
 });
 
 //Start our server
-const server = app.listen(config.port, function() {
-  console.log('listening on port', server.address().port);
+const server = app.listen(config.port, () => {
+  console.log('listening on port'.green, server.address().port);
   //Sync our database
-  db.sync().then(message => {
-    console.log('and db is synced');
+  db.sync({ force: false }).then(() => {
+    console.log('db is synced'.green);
   });
 });
