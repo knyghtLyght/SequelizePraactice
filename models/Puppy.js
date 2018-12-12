@@ -20,14 +20,11 @@ const Puppy = db.define(
     },
     age: {
       type: Sequelize.INTEGER,
-      allowNull: false
-    },
-    favFood: {
-      type: Sequelize.STRING
+      allowNull: false,
+      defaultValue: 1
     }
   },
   {
-    //Getter methods allow us to have a built in source for combined data
     getterMethods: {
       fullName: function() {
         return this.firstName + ' ' + this.lastName;
@@ -35,10 +32,5 @@ const Puppy = db.define(
     }
   }
 );
-
-//instance method example
-Puppy.prototype.greet = function() {
-  return 'Woo my name is ' + this.fullName;
-};
 
 module.exports = Puppy;

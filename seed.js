@@ -8,6 +8,7 @@ const Puppy = require('./models/Puppy');
 const Park = require('./models/Park');
 const Location = require('./models/Location');
 const Food = require('./models/Food');
+const Cat = require('./models/Cat');
 
 // The actual seed data
 const locationData = [
@@ -19,6 +20,39 @@ const locationData = [
   },
   {
     address: 'Washington Square, NY'
+  }
+];
+
+const catData = [
+  {
+    firstName: 'Puppy',
+    lastName: 'Doggo',
+    age: 1
+  },
+  {
+    firstName: 'Pupster',
+    lastName: 'Puppo',
+    age: 2
+  },
+  {
+    firstName: 'Mr.',
+    lastName: 'Puppyface',
+    age: 3
+  },
+  {
+    firstName: 'Ham',
+    lastName: 'Sandwich',
+    age: 1
+  },
+  {
+    firstName: 'Jon',
+    lastName: 'MacPuppald',
+    age: 2
+  },
+  {
+    firstName: 'Omri',
+    lastName: 'Puppstein',
+    age: 1
   }
 ];
 
@@ -108,6 +142,12 @@ db.sync({ force: true })
   })
   .then(createdPuppies => {
     console.log(`${createdPuppies.length} puppies created`.green);
+  })
+  .then(() => {
+    return Promise.map(catData, kitten => Cat.create(kitten));
+  })
+  .then(createdPuppies => {
+    console.log(`${createdPuppies.length} kittens created`.green);
   })
   .then(() => {
     return Promise.map(foodData, food => Food.create(food));

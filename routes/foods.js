@@ -1,6 +1,6 @@
 const router = require("express").Router(); // eslint-disable-line
 const Food = require('../models/Food');
-const Puppy = require('../models/Puppy');
+const Cat = require('../models/Cat');
 
 module.exports = router;
 
@@ -20,8 +20,8 @@ router.post('/', (req, res, next) => {
 
 // Get food by id
 router.get('/:id', (req, res, next) => {
-  Food.findById(req.params.id, {
-    include: [{ model: Puppy, as: 'puppies' }]
+  Food.findByPk(req.params.id, {
+    include: [{ model: Cat, as: 'kittens' }]
   })
     .then(results => res.send(results))
     .catch(next);

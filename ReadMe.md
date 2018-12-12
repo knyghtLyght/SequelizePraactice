@@ -1,5 +1,7 @@
 # Express and sequelize practice
 
+This is an experimentation with Sequelize and a refresher for express. The intent was to mess with the associations from Sequelize and intigrate asyn / await with express route managment.
+
 ## intent
 
 A simple exploration of Sequelize and express review

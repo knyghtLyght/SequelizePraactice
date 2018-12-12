@@ -1,4 +1,4 @@
-const router = require('express').Router();
+const router = require("express").Router(); // eslint-disable-line
 
 const Park = require('../models/Park');
 const Location = require('../models/Location');
@@ -8,7 +8,9 @@ module.exports = router;
 
 // Get all endpoint
 router.get('/', (req, res, next) => {
-  Park.findAll()
+  Park.findAll({
+    include: [{ all: true }]
+  })
     .then(results => res.send(results))
     .catch(next);
 });

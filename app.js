@@ -5,6 +5,10 @@ const config = require('./config/config'); //config file for incresed modularity
 const bodyParser = require('body-parser'); //Helps us handle http requests
 const path = require('path'); //Built in node module that handles path minipulation
 const puppiesRouter = require('./routes/puppiesRouter'); //Holds all the routes that dael with puppies
+const foodsRouter = require('./routes/foods');
+const parksRouter = require('./routes/park');
+const locationsRouter = require('./routes/location');
+const catRouter = require('./routes/cat');
 const db = require('./db');
 
 //Init our server instance
@@ -18,8 +22,12 @@ app.use(bodyParser.json());
 //Serve up the public folder contents for static files
 app.use(express.static(path.join(__dirname, 'public')));
 
-//Establish our base route for all puppies routes
+//Establish our base route for all models
 app.use('/puppies', puppiesRouter);
+app.use('/foods', foodsRouter);
+app.use('/parks', parksRouter);
+app.use('/locations', locationsRouter);
+app.use('/cats', catRouter);
 
 //Establish our default route if the user searches for something that is not there
 app.use('*', (req, res) => {

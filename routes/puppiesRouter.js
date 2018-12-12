@@ -1,12 +1,14 @@
 const router = require("express").Router(); // eslint-disable-line
-const puppies = require('../puppies'); //Our database standin
 const Puppy = require('../models/Puppy'); //Our actual db model
 
 module.exports = router;
 
 //Get all puppies endpoint
 router.get('/', (req, res, next) => {
-  Puppy.findAll()
+  Puppy.findAll({
+    where: req.query,
+    include: [{ all: true }]
+  })
     .then(result => res.send(result))
     .catch(next);
 });
@@ -30,7 +32,11 @@ router.get('/:id', (req, res, next) => {
 
 //Puppy Update endpoint
 router.put('/:id', (req, res) => {
-  let puppy = puppies[req.params.id];
+  let puppy = Puppy.findOne({
+    where: {
+      id: req.params.id
+    }
+  });
   Object.assign(puppy, req.body);
   res.send(puppy);
 });
